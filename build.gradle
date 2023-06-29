@@ -1,0 +1,33 @@
+/* Common build instructions */
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.bmuschko.gradle.docker.tasks.container.*
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:9.3.1'
+    }
+}
+
+subprojects {
+
+    apply plugin: 'com.bmuschko.docker-remote-api'
+ 
+    repositories {
+        mavenCentral()
+    }
+
+    docker {
+        url = "https://localhost:2376"
+        certPath = new File(System.properties['user.home'], '.docker/certs')
+        
+        registryCredentials {
+            url = 'https://hub.docker.com/'
+            username = 'axel9691krebs'
+            password = 'Axel#9691'
+            email = 'axelkrebs@online.de'
+        }
+    }
+}

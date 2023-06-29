@@ -1,0 +1,90 @@
+/* Debian 11 ('Bullseye') Docker image */
+
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.bmuschko.gradle.docker.tasks.container.*
+
+plugins {
+    id("idea")
+    id("java")
+    id("application")
+    id("com.github.johnrengelman.shadow") version "${shadowJarVersion}"
+}
+
+//apply plugin: 'io.spring.dependency-management'
+
+group = theGroup
+version = theVersion
+
+ext {
+    MINOR_JDK_VERSION = JavaVersion.VERSION_11
+    MAJOR_JDK_VERSION = JavaVersion.VERSION_11
+    // NETTY_VERSION = "${nettyVersion}"
+    // RX_VERSION = '3.0.1'
+    // LOGBACK_VERSION = '1.4.7'
+    // LOGSTASH_LOGBACK_ENCODER_VERSION = '7.3'
+}
+
+dependencies {
+    implementation(platform("io.projectreactor:reactor-bom:2022.0.6"))  
+    // implementation("ch.qos.logback:logback-classic:$LOGBACK_VERSION")
+    // implementation("ch.qos.logback:logback-core:$LOGBACK_VERSION")
+    // implementation("ch.qos.logback:logback-access:$LOGBACK_VERSION")
+    // implementation("org.slf4j:slf4j-api:$SLF4J_API_VERSION")
+    // implementation("org.slf4j:jcl-over-slf4j:$SLF4J_API_VERSION")
+    // implementation("org.slf4j:log4j-over-slf4j:$SLF4J_API_VERSION")
+    // implementation("net.logstash.logback:logstash-logback-encoder:$LOGSTASH_LOGBACK_ENCODER_VERSION")
+}
+
+java {
+    sourceCompatibility = MINOR_JDK_VERSION
+    targetCompatibility = MAJOR_JDK_VERSION
+}
+
+application {
+    mainClass = 'de.akrebs.cloud.gateway.Launcher'
+}
+
+shadowJar {
+    configurations = [project.configurations.compileClasspath]
+    manifest {
+        attributes "Implementation-Vendor": "akrebs"
+        attributes "Implementation-Title": project.name
+        attributes "Implementation-Version": project.version
+        attributes "Signature-Version": "1.0"
+        attributes "Name": "de/akrebs/cloud/gateway/"
+        attributes "Sealed": "false"
+        attributes "Main-Class": "de.akrebs.cloud.gateway.Launcher"
+    }
+    archiveBaseName.set('api-gateway')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+// dangling task - build manually
+tasks.register('buildTargetImage', DockerBuildImage) {
+    inputDir = file('./')
+    images.add("${dockerRepo}/${imageName}:${imageTag}")
+}
+
+/* TESTING */
+
+tasks.register('createTestContainer', DockerCreateContainer) {
+    dependsOn buildTargetImage
+    targetImageId buildTargetImage.getImageId()
+    hostConfig.portBindings = ['8080:8080']
+    hostConfig.autoRemove = true
+}
+
+tasks.register('startTestContainer', DockerStartContainer) {
+    dependsOn createTestContainer
+    targetContainerId createTestContainer.getContainerId()
+}
+
+tasks.register('stopTestContainer', DockerStopContainer) {
+    targetContainerId startTestContainer.getContainerId()
+}
+
+tasks.register('xyz_funcTestContainer', Task) {
+    dependsOn startTestContainer
+    finalizedBy stopTestContainer
+}

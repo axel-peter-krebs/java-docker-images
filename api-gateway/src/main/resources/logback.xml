@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Example for Logstash
+    <appender name="stash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+        <host>MyAwesomeSyslogServer</host>
+        <port>514</port>
+        <layout class="net.logstash.logback.layout.LogstashLayout"/>
+    </appender>
+    <root level="all">
+        <appender-ref ref="stash" />
+    </root>
+    -->
+    <root level="all">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        google()
+    }
+    plugins {
+        //id("com.palantir.docker") version "0.35.0"
+        id("com.bmuschko.docker-remote-api") version "9.3.1"
+    }
+}
+
+rootProject.name = 'java-docker-images'
+include 'alma9.1-en'
+include 'alma9.1-cmake'
+include 'debian-cmake'
+include 'debian-en'
+include 'fedora38-en'
+include 'fedora38-cmake'
+include 'graalvm-java11'
+include 'graalvm-java17'
+include 'graalvm-java19'
+include 'monetdb11'
+include 'openjdk-java11'
+include 'openjdk-java17'
+include 'temurin8-hotspot'
+include 'ubuntu-en'
+include 'ubuntu-cmake'
