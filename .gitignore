@@ -7,5 +7,3 @@
 /**/build/
 **/**.tar.gz
 **/**.zip
-**/id_rsa_shared
-**/id_rsa_shared.pub
