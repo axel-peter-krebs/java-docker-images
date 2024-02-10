@@ -1,4 +1,5 @@
-FROM fedora:latest
+# 'rawhide' means v. 40
+FROM fedora:rawhide
 
 LABEL maintainer 'axelkrebs@online.de'
 
@@ -7,7 +8,7 @@ EXPOSE 22
 ENV LANG=en_US.UTF-8
 
 RUN dnf upgrade -y
-RUN dnf -y install glibc-locale-source glibc-langpack-en libyaml openssl-devel sudo tar zlib
+RUN dnf -y install curl glibc-locale-source glibc-langpack-en libyaml openssl-devel sudo tar wget zlib
 #RUN localectl set-locale LANG=en_US.UTF-8
 #RUN localedef --verbose --force -i en_US -f UTF-8 en_US.UTF-8
 RUN source /etc/profile.d/lang.sh

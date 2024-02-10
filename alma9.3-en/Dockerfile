@@ -1,6 +1,8 @@
-FROM almalinux:9.1-minimal
+FROM almalinux:9.3-minimal
 
 LABEL maintainer 'axelkrebs@online.de'
+
+# Prepare a minimal 'server' for Java runtimes
 
 EXPOSE 22
 

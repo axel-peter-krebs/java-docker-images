@@ -1,4 +1,4 @@
-FROM axel9691/ubuntu:22-en
+FROM ubuntu:jammy
 
 LABEL maintainer 'axelkrebs@online.de'
 

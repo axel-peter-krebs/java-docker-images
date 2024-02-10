@@ -1,4 +1,5 @@
-FROM debian:stable-slim
+# 'bookworm-slim' is the same as 12.4-slim (10.02.2024)
+FROM debian:bookworm-slim 
 
 # Install essential networking and ssl features, locales; set up users
 
@@ -10,7 +11,7 @@ ENV LC_ALL=en_US.UTF-8
 
 RUN apt-get -y upgrade 
 RUN apt-get -y update 
-RUN apt install -y apt-utils curl libssl-dev locales sudo wget 
+RUN apt install -y apt-utils curl gpg libssl-dev locales lsb-release sudo wget 
 
 RUN echo "LC_ALL=$LANG" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen

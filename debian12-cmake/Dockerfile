@@ -1,4 +1,4 @@
-FROM axel9691/debian:11.6-en
+FROM axel9691/debian:12-en 
 
 LABEL maintainer 'axelkrebs@online.de'
 

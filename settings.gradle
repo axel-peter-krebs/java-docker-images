@@ -6,23 +6,26 @@ pluginManagement {
     }
     plugins {
         //id("com.palantir.docker") version "0.35.0"
-        id("com.bmuschko.docker-remote-api") version "9.3.1"
+        id("com.bmuschko.docker-remote-api") version "9.4.0"
     }
 }
 
 rootProject.name = 'java-docker-images'
-include 'alma9.1-en'
-include 'alma9.1-cmake'
-include 'debian-cmake'
-include 'debian-en'
-include 'fedora38-en'
-include 'fedora38-cmake'
-include 'graalvm-java11'
-include 'graalvm-java17'
-include 'graalvm-java19'
-include 'monetdb11'
-include 'openjdk-java11'
-include 'openjdk-java17'
-include 'temurin8-hotspot'
-include 'ubuntu-en'
-include 'ubuntu-cmake'
+include ':alma9.1-cmake'
+include ':alma9.3-en'
+include ':debian12-cmake'
+include ':debian12.4-en'
+include ":debian12_postgres16"
+include ':fedora38-cmake'
+include ':fedora40-en'
+include ':graalvm-java11'
+include ':graalvm-java17'
+include ':graalvm-java19'
+include ':graalvm-java21'
+//include 'monetdb11'
+include ':openjdk-java11'
+include ':openjdk-java17'
+include ':openjdk-java21'
+include ':ubuntu22.04_jdk8'
+include ':ubuntu22.04-cmake'
+include ':ubuntu23.10_python3.11'
