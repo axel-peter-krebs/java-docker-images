@@ -13,6 +13,7 @@ pluginManagement {
 rootProject.name = 'java-docker-images'
 include ':alma9.1-cmake'
 include ':alma9.3-en'
+include ':couchbase-7.6'
 include ':debian12-cmake'
 include ':debian12.4-en'
 include ":debian12_postgres16"
