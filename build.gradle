@@ -26,9 +26,9 @@ subprojects {
         
         registryCredentials {
             url = 'https://hub.docker.com/'
-            username = 'axel9691krebs'
+            username = 'axel9691'
             password = 'Axel#9691'
-            email = 'axelkrebs@online.de'
+            email = 'axel_krebs@hotmail.de'
         }
     }
 }
